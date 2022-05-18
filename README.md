@@ -33,8 +33,9 @@ host4.localhost
 
 Now visit each host you have added + the original localhost 
 
-Sometimes it takes me up to 3 hosts before corruption takes place. You need to switch between each host and refresh each host (hard refresh and normal refresh) and then
+Sometimes it takes me up to 5-6 hosts before corruption takes place or maybe it depends on a certain amount of time?. You need to switch between each host and refresh each host (hard refresh and normal refresh) and then
 corruption will take place.
 
 You should then be able to click on the script in dev tools & open in new tab to see the corrupted file. If you hard refresh on it
-it goes back to normal.
+it goes back to normal. Make sure you have the dev console open on each tab for each host and switch through
+the tabs to F5 refresh between them and continue adding hosts / refreshing between each until it errors.
