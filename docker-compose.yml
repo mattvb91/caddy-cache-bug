@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  nextjs:
+    build:
+      context: ./docker/node
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes:
+      - ./nextjs:/app
+
+  caddy:
+    build:
+      context: ./docker/caddy
+    restart: unless-stopped
+    depends_on:
+      - nextjs
+    command: [ "caddy", "run", "--resume" ]
+    ports:
+      - "80:80"
+      - "443:443"
+      - "2019:2019"
+    volumes:
+      - ./caddy/autosave.json:/config/caddy/autosave.json

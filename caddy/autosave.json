@@ -1,0 +1,72 @@
+{
+  "admin": {
+    "listen": ":2019"
+  },
+  "apps": {
+    "cache": {
+      "api": {
+        "basepath": "/__cache",
+        "souin": {
+          "basepath": "/souin",
+          "enable": true
+        }
+      },
+      "log_level": "debug",
+      "ttl": "3600s"
+    },
+    "http": {
+      "servers": {
+        "srv0": {
+          "listen": [
+            ":80"
+          ],
+          "routes": [
+            {
+              "handle": [
+                {
+                  "allowed_http_verbs": [
+                    "GET"
+                  ],
+                  "default_cache_control": "no-store",
+                  "handler": "cache"
+                },
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "upstreams": [
+                            {
+                              "dial": "nextjs:3000"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "match": [
+                {
+                  "host": [
+                    "localhost"
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "logging": {
+    "logs": {
+      "default": {
+        "level": "DEBUG"
+      }
+    }
+  }
+}
